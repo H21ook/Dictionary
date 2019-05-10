@@ -10,18 +10,17 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let item of items">
-      <ion-icon [name]="item.icon" slot="start"></ion-icon>
-      {{item.title}}
-      <div class="item-note" slot="end">
-        {{item.note}}
-      </div>
+  <ion-list *ngIf="words">
+    <ion-item *ngFor="let item of words">
+      <ion-label text-wrap>
+        <ion-text>
+          <h3>{{item.eng ? item.eng : item.abb}}</h3>
+        </ion-text>
+        <p *ngIf="item.mon">{{item.mon}}</p>
+        <ion-text>
+          <p>{{item.eng_desc ? item.eng_desc : (item.mon_desc ? item.mon_desc : desc)}}</p>
+        </ion-text>
+      </ion-label>
     </ion-item>
   </ion-list>
-  <!--
-    <div *ngIf="selectedItem" padding>
-      You navigated here from <b>{{selectedItem.title }}</b>
-    </div>
-  -->
 </ion-content>
