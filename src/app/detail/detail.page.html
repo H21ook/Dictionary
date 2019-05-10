@@ -1,0 +1,37 @@
+<ion-header class="no-shadow">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button
+        [text]=""
+        [icon]="arrow-back">
+    </ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="word">
+    <ion-row class="main">
+      <ion-col size="9">
+        <ion-label class="key-word">{{word.abb ? word.abb : (word.eng ? word.eng : '')}}</ion-label>
+      </ion-col>
+      <ion-col size="3">
+        <div class="favBtn">
+          <ion-icon [name]="favoriteIcon" (click)="addFavorite()" style="font-size: 40px" color="warning"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="word.mon">
+      <ion-label class="mon-word">{{word.mon}}</ion-label>
+    </ion-row>
+    <ion-row *ngIf="word.eng_desc">
+      <ion-text class="desc">{{word.eng_desc}}</ion-text>
+    </ion-row>
+    <ion-row *ngIf="word.mon_desc">
+      <ion-text class="desc">{{word.mon_desc}}</ion-text>
+    </ion-row>
+    <ion-row *ngIf="word.text_desc">
+      <ion-text class="desc">{{word.text_desc}}</ion-text>
+    </ion-row>
+  </div>
+</ion-content>

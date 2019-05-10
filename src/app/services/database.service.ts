@@ -71,7 +71,7 @@ export class DatabaseService {
             eng_desc: data.rows.item(i).eng_desc,
             mon_desc: data.rows.item(i).mon_desc,
             abb: data.rows.item(i).abb,
-            desc: data.rows.item(i).desc
+            desc: data.rows.item(i).text_desc
            });
         }
       }
@@ -81,7 +81,7 @@ export class DatabaseService {
  
   addWord(eng, mon, eng_desc, mon_desc, abb, desc) {
     let data = [eng, mon, eng_desc, mon_desc, abb, desc];
-    return this.database.executeSql('INSERT INTO word (eng, mon, eng_desc, mon_desc, abb, desc) VALUES (?, ?, ?, ?, ?, ?)', data).then(data => {
+    return this.database.executeSql('INSERT INTO word (eng, mon, eng_desc, mon_desc, abb, text_desc) VALUES (?, ?, ?, ?, ?, ?)', data).then(data => {
       this.loadWords();
     });
   }
@@ -95,7 +95,7 @@ export class DatabaseService {
         eng_desc: data.rows.item(0).eng_desc,
         mon_desc: data.rows.item(0).mon_desc,
         abb: data.rows.item(0).abb,
-        desc: data.rows.item(0).desc
+        desc: data.rows.item(0).text_desc
       }
     });
   }
@@ -108,7 +108,7 @@ export class DatabaseService {
  
   updateWord(word: Word) {
     let data = [word.eng, word.mon, word.eng_desc, word.mon_desc, word.abb, word.desc];
-    return this.database.executeSql(`UPDATE word SET eng = ?, mon = ?, eng_desc = ?, mon_desc = ?, abb = ?, desc = ? WHERE id = ${word.id}`, data).then(data => {
+    return this.database.executeSql(`UPDATE word SET eng = ?, mon = ?, eng_desc = ?, mon_desc = ?, abb = ?, text_desc = ? WHERE id = ${word.id}`, data).then(data => {
       this.loadWords();
     })
   }
