@@ -10,7 +10,8 @@ const routes: Routes = [
   {
     path: 'list',
     loadChildren: './list/list.module#ListPageModule'
-  }
+  },
+  { path: 'detail/:id', loadChildren: './detail/detail.module#DetailPageModule' }
 ];
 
 @NgModule({

@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header class="no-shadow">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
@@ -16,7 +16,7 @@
 <ion-content>
 
   <ion-list *ngIf="index > 0">
-    <ion-item *ngFor="let item of displayWords">
+    <ion-item *ngFor="let item of displayWords" [routerDirection]="'forward'" [routerLink]="'/detail/item.id'">
       <ion-label text-wrap>
         <ion-text>
           <h3>{{item.eng ? item.eng : item.abb}}</h3>

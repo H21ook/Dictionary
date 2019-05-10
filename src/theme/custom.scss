@@ -1,5 +1,5 @@
-.header {
-    --padding-top: 30px;
+.no-shadow:after, .no-shadow, .no-shadow:before{
+    background-image: none !important;
 }
 
 .menu{
@@ -23,7 +23,7 @@
 .brand-name {
     font-size: 25px;
     align-self: center;
-    color: var(--ion-color-light);
+    color: var(--ion-color-primary-contrast, #ffffff);
 }
 
 .menu-list {
@@ -32,7 +32,7 @@
 
 .menu-list-item {
     --background: var(--ion-color-primary);
-    color: var(--ion-color-light);
+    color: var(--ion-color-primary-contrast, #ffffff);
 }
 
 .lang-control {
@@ -44,4 +44,30 @@
 
 .lang-text {
     align-self: center;
+}
+
+
+//DETAIL PAGE
+.main {
+    height: auto;
+    width: 100%;
+    padding: 15px 15px 10px 15px;
+}
+.key-word {
+    font-weight: bold;
+}
+
+.favBtn {
+    text-align: right;
+    height: 100%;
+}
+
+.mon-word {
+    padding: 5px 25px;
+}
+
+.desc {
+    padding: 5px 25px;
+    color: var(--ion-color-dark-tint);
+    font-style: italic;
 }
