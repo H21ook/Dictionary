@@ -1,0 +1,21 @@
+<ion-header class="no-shadow">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Favorite</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="listLength > 0">
+    <ion-item *ngFor="let item of words" [routerDirection]="'forward'" [routerLink]="'/detail/item.id'">
+      <ion-label text-wrap>
+        <ion-text class="key-word">
+          <h3>{{item.abb ? item.abb : item.eng}}</h3>
+        </ion-text>
+        <p class="list-mon" *ngIf="item.mon">{{item.mon}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

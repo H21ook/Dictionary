@@ -11,7 +11,10 @@ const routes: Routes = [
     path: 'list',
     loadChildren: './list/list.module#ListPageModule'
   },
-  { path: 'detail/:id', loadChildren: './detail/detail.module#DetailPageModule' }
+  { path: 'detail/:id', loadChildren: './detail/detail.module#DetailPageModule' },
+  { path: 'recently', loadChildren: './recently/recently.module#RecentlyPageModule' },
+  { path: 'favorite', loadChildren: './favorite/favorite.module#FavoritePageModule' },
+  { path: 'about', loadChildren: './about/about.module#AboutPageModule' }
 ];
 
 @NgModule({

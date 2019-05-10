@@ -3,40 +3,33 @@
 }
 
 .menu{
-    --background: var(--ion-color-primary);
+    --background: var(--ion-color-primary, #4C89C8);
 }
 
 .wrap-logo {
     width: 100%;
-    background-color: var(--ion-color-primary);
+    background-color: var(--ion-color-primary, #4C89C8);
     margin: 0px;
     padding-top: 15px;
 }
 
 .logo {
-    height: 60px;
-    width: 60px;
-    margin: 10px 5px;
+    width: 95%;
+    margin: 10px auto;
     align-self: center;
-}
-
-.brand-name {
-    font-size: 25px;
-    align-self: center;
-    color: var(--ion-color-primary-contrast, #ffffff);
 }
 
 .menu-list {
-    background: var(--ion-color-primary);
+    background: var(--ion-color-primary, #4C89C8);
 }
 
 .menu-list-item {
-    --background: var(--ion-color-primary);
+    --background: var(--ion-color-primary, #4C89C8);
     color: var(--ion-color-primary-contrast, #ffffff);
 }
 
 .lang-control {
-    background: var(--ion-color-danger);
+    background: var(--ion-color-danger, #f04141);
     padding: 0 10px;
     border-radius: 20px;
     margin-left: 0px;
@@ -68,6 +61,12 @@
 
 .desc {
     padding: 5px 25px;
-    color: var(--ion-color-dark-tint);
+    color: var(--ion-color-dark-tint, #383a3e);
     font-style: italic;
+}
+
+//Jagsaalt delgetsuud
+
+.list-mon {
+    padding-left: 10px;
 }

@@ -18,13 +18,13 @@
   <ion-list *ngIf="index > 0">
     <ion-item *ngFor="let item of displayWords" [routerDirection]="'forward'" [routerLink]="'/detail/item.id'">
       <ion-label text-wrap>
-        <ion-text>
-          <h3>{{item.eng ? item.eng : item.abb}}</h3>
+        <ion-text class="key-word">
+          <h3>{{item.abb ? item.abb : item.eng}}</h3>
         </ion-text>
-        <p *ngIf="item.mon">{{item.mon}}</p>
-        <ion-text>
+        <p class="list-mon" *ngIf="item.mon">{{item.mon}}</p>
+        <!-- <ion-text>
           <p>{{item.eng_desc ? item.eng_desc : (item.mon_desc ? item.mon_desc : desc)}}</p>
-        </ion-text>
+        </ion-text> -->
       </ion-label>
     </ion-item>
   </ion-list>

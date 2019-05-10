@@ -37,7 +37,7 @@ export class ListPage implements OnInit {
           this.getDefaultValue();
         })
       }
-    });
+    }); 
   }
 
   getDefaultValue() {
