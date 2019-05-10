@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DatabaseService } from '../services/database.service';
 import { Word } from '../models/word.model';
+import { IonInfiniteScroll, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-list',
@@ -9,10 +10,15 @@ import { Word } from '../models/word.model';
 })
 export class ListPage implements OnInit {
 
+  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   words: Word[] = [];
+  displayWords: Word[] = [];
   word: Word;
+  index: number = 0;
+
   constructor(
-    private db: DatabaseService
+    private db: DatabaseService,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -25,6 +31,33 @@ export class ListPage implements OnInit {
     });
   }
 
+  loadData(event) {
+    setTimeout(() => {
+      this.presentToast('Done');
+      event.target.complete();
+
+      if (this.words.length == 1000) {
+        event.target.disabled = true;
+      }
+    });
+  }
+
+  getPaginateData() {
+    if(this.words.length > 0 && this.index < this.words.length) {
+      this.displayWords = this.words.slice(this.index + 20);
+    }
+  }
+  toggleInfiniteScroll() {
+    this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
+  }
+  
+  async presentToast(msg: string) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 2000
+    });
+    toast.present();
+  }
   /*readData() {
     if(this.words.length <= 0) {
 
