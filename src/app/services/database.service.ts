@@ -65,7 +65,7 @@ export class DatabaseService {
   }
 
   loadWords() {
-    return this.database.executeSql('SELECT * FROM word', []).then(data => {
+    return this.database.executeSql('SELECT * FROM word ORDER BY eng', []).then(data => {
       let words: Word[] = [];
  
       if (data.rows.length > 0) {
@@ -125,7 +125,7 @@ export class DatabaseService {
   }
 
   loadFavorites() {
-    return this.database.executeSql('SELECT * FROM favorite ORDER BY viewed_time DESC', []).then(data => {
+    return this.database.executeSql('SELECT * FROM favorite ORDER BY created_date DESC', []).then(data => {
       let favorites: Favorite[] = [];
  
       if (data.rows.length > 0) {
@@ -138,7 +138,8 @@ export class DatabaseService {
             mon_desc: data.rows.item(i).mon_desc,
             abb: data.rows.item(i).abb,
             desc: data.rows.item(i).text_desc,
-            viewed_time: data.rows.item(i).viewed_time
+            viewed_time: data.rows.item(i).viewed_time,
+            created_date: data.rows.item(i).created_date
            });
         }
       }
@@ -146,9 +147,9 @@ export class DatabaseService {
     });
   }
 
-  addFavorite(id, eng, mon, eng_desc, mon_desc, abb, desc, viewed_time) {
-    let data = [id, eng, mon, eng_desc, mon_desc, abb, desc, viewed_time];
-    return this.database.executeSql('INSERT INTO favorite (id, eng, mon, eng_desc, mon_desc, abb, text_desc, viewed_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', data).then(data => {
+  addFavorite(id, eng, mon, eng_desc, mon_desc, abb, desc, viewed_time, created_date) {
+    let data = [id, eng, mon, eng_desc, mon_desc, abb, desc, viewed_time, created_date];
+    return this.database.executeSql('INSERT INTO favorite (id, eng, mon, eng_desc, mon_desc, abb, text_desc, viewed_time, created_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', data).then(data => {
       this.loadFavorites();
     });
   }
@@ -163,7 +164,8 @@ export class DatabaseService {
         mon_desc: data.rows.item(0).mon_desc,
         abb: data.rows.item(0).abb,
         desc: data.rows.item(0).text_desc,
-        viewed_time: data.rows.item(0).viewed_time
+        viewed_time: data.rows.item(0).viewed_time,
+        created_date: data.rows.item(0).created_date
       }
     });
   }
@@ -175,8 +177,8 @@ export class DatabaseService {
   }
  
   updateFavorite(favorite: Favorite) {
-    let data = [favorite.eng, favorite.mon, favorite.eng_desc, favorite.mon_desc, favorite.abb, favorite.desc, favorite.viewed_time];
-    return this.database.executeSql(`UPDATE favorite SET eng = ?, mon = ?, eng_desc = ?, mon_desc = ?, abb = ?, text_desc = ?, viewed_time = ? WHERE id = ${favorite.id}`, data).then(data => {
+    let data = [favorite.eng, favorite.mon, favorite.eng_desc, favorite.mon_desc, favorite.abb, favorite.desc, favorite.viewed_time, favorite.created_date];
+    return this.database.executeSql(`UPDATE favorite SET eng = ?, mon = ?, eng_desc = ?, mon_desc = ?, abb = ?, text_desc = ?, viewed_time = ?, created_date = ? WHERE id = ${favorite.id}`, data).then(data => {
       this.loadFavorites();
     })
   }
@@ -187,7 +189,7 @@ export class DatabaseService {
   }
 
   loadRecentles() {
-    return this.database.executeSql('SELECT * FROM recently ORDER BY viewed_time DESC', []).then(data => {
+    return this.database.executeSql('SELECT * FROM recently ORDER BY created_date DESC', []).then(data => {
       let recentles: Favorite[] = [];
  
       if (data.rows.length > 0) {
@@ -200,7 +202,8 @@ export class DatabaseService {
             mon_desc: data.rows.item(i).mon_desc,
             abb: data.rows.item(i).abb,
             desc: data.rows.item(i).text_desc,
-            viewed_time: data.rows.item(i).viewed_time
+            viewed_time: data.rows.item(i).viewed_time,
+            created_date: data.rows.item(i).created_date
            });
         }
       }
@@ -208,9 +211,9 @@ export class DatabaseService {
     });
   }
 
-  addRecently(eng, mon, eng_desc, mon_desc, abb, desc, viewed_time) {
-    let data = [eng, mon, eng_desc, mon_desc, abb, desc, viewed_time];
-    return this.database.executeSql('INSERT INTO recently (eng, mon, eng_desc, mon_desc, abb, text_desc, viewed_time) VALUES (?, ?, ?, ?, ?, ?, ?)', data).then(data => {
+  addRecently(eng, mon, eng_desc, mon_desc, abb, desc, viewed_time, created_date) {
+    let data = [eng, mon, eng_desc, mon_desc, abb, desc, viewed_time, created_date];
+    return this.database.executeSql('INSERT INTO recently (eng, mon, eng_desc, mon_desc, abb, text_desc, viewed_time, created_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', data).then(data => {
       this.loadRecentles();
     });
   }
@@ -225,7 +228,8 @@ export class DatabaseService {
         mon_desc: data.rows.item(0).mon_desc,
         abb: data.rows.item(0).abb,
         desc: data.rows.item(0).text_desc,
-        viewed_time: data.rows.item(0).viewed_time
+        viewed_time: data.rows.item(0).viewed_time,
+        created_date: data.rows.item(0).created_date,
       }
     });
   }
@@ -237,8 +241,8 @@ export class DatabaseService {
   }
  
   updateRecently(recently: Recently) {
-    let data = [recently.eng, recently.mon, recently.eng_desc, recently.mon_desc, recently.abb, recently.desc, recently.viewed_time];
-    return this.database.executeSql(`UPDATE recently SET eng = ?, mon = ?, eng_desc = ?, mon_desc = ?, abb = ?, text_desc = ?, viewed_time = ? WHERE id = ${recently.id}`, data).then(data => {
+    let data = [recently.eng, recently.mon, recently.eng_desc, recently.mon_desc, recently.abb, recently.desc, recently.viewed_time, recently.created_date];
+    return this.database.executeSql(`UPDATE recently SET eng = ?, mon = ?, eng_desc = ?, mon_desc = ?, abb = ?, text_desc = ?, viewed_time = ?, created_date = ? WHERE id = ${recently.id}`, data).then(data => {
       this.loadRecentles();
     })
   }

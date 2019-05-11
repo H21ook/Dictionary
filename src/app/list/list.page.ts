@@ -1,30 +1,35 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild } from '@angular/core';
 import { DatabaseService } from '../services/database.service';
 import { Word } from '../models/word.model';
-import { IonInfiniteScroll, ToastController } from '@ionic/angular';
+import { IonInfiniteScroll, ToastController, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { MiddlewareService } from '../services/middleware.service';
 
 @Component({
   selector: 'app-list',
   templateUrl: 'list.page.html',
   styleUrls: ['list.page.scss']
 })
-export class ListPage implements OnInit {
+export class ListPage implements OnInit, OnDestroy, AfterViewInit {
 
   words: Word[] = [];         //Oorchlogdohgui
   libWords: Word[] = [];      //Hailt hiiwel hailtiin ilerts awah zereg oorchlogdono
   displayWords: Word[] = [];  //delgetsend haragdah ugnuud
   LIMIT = 40;                 //neg udaa unshih hyzgaar
   word: Word;
-  index: number = 0;
-  searchField: string = "eng";  //hailt hiih talbar
+  index: number = 0;  //hailt hiih talbar
+  lang: boolean;        //hel
   
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
+  backButtonSubscription;
+  
   constructor(
     private db: DatabaseService,
     private toastController: ToastController,
-    private splashScreen: SplashScreen
+    private splashScreen: SplashScreen,
+    private middleWare: MiddlewareService,
+    private platform: Platform
   ) { }
 
   ngOnInit() {
@@ -38,6 +43,19 @@ export class ListPage implements OnInit {
         })
       }
     }); 
+    this.middleWare.language.subscribe(lang => {
+      this.lang = lang;
+    });
+  }
+
+  ngAfterViewInit() {
+    this.backButtonSubscription = this.platform.backButton.subscribe(() => {
+      navigator['app'].exitApp();
+    });
+  }
+ 
+  ngOnDestroy() {
+    this.backButtonSubscription.unsubscribe();
   }
 
   getDefaultValue() {
@@ -45,6 +63,9 @@ export class ListPage implements OnInit {
     this.index = 0;
     this.displayWords = this.words.slice(this.index, this.index + this.LIMIT);
     this.index += this.LIMIT;
+    if(this.displayWords.length == 0) {
+      this.index = 0;
+    }
     if(this.libWords.length > 20) {
       this.infiniteScroll.disabled = false;
     }
@@ -72,7 +93,7 @@ export class ListPage implements OnInit {
   async presentToast(msg: string) {
     const toast = await this.toastController.create({
       message: msg,
-      position: 'top',
+      position: 'bottom',
       duration: 2000
     });
     toast.present();
@@ -88,18 +109,42 @@ export class ListPage implements OnInit {
     if (!search) {
       this.getDefaultValue();
     } else {
-      this.words.filter(data => {
-        if (data[this.searchField].trim().toLowerCase().includes(search.trim().toLowerCase())) {
-          this.libWords.push(data);
-        }
-      });
+      if(this.lang) {
+        this.monSearch(search);
+      } else {
+        this.engSearch(search);
+      }
       this.displayWords = this.libWords.slice(this.index, this.index + this.LIMIT);
       this.index += this.LIMIT;
-
+      if(this.displayWords.length == 0) {
+        this.index = 0;
+      }
+      
       if(this.libWords.length > 20) {
         this.infiniteScroll.disabled = false;
       } 
-      
+    }
+  }
+
+  monSearch(search) {
+    for(let element of this.words) {
+      if(element.mon.substring(0, search.length) == search) {
+        this.libWords.push(element);
+      }
+    }
+  }
+
+  engSearch(search) {
+    for(let element of this.words) {
+      if(element.abb) {
+        if(element.abb.substring(0, search.length) == search) {
+          this.libWords.push(element);
+        }
+      } else {
+        if(element.eng.substring(0, search.length) == search) {
+          this.libWords.push(element);
+        }
+      }
     }
   }
   /*readData() {

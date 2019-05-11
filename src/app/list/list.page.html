@@ -3,11 +3,12 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
+    <ion-title>{{lang ? 'Нүүр' : 'Home'}}</ion-title>
   </ion-toolbar>
   <ion-row>
     <ion-col size="2"></ion-col>
     <ion-col size="8">
-      <ion-searchbar mode="ios" animated placeholder="Search" (ionChange)="search($event)" color="light"></ion-searchbar>
+      <ion-searchbar mode="ios" animated placeholder="{{lang ? 'Хайх' : 'Search'}}" (ionChange)="search($event)" color="light"></ion-searchbar>
     </ion-col>
     <ion-col size="2"></ion-col>
   </ion-row>
@@ -15,23 +16,26 @@
 
 <ion-content>
 
-  <ion-list *ngIf="index > 0">
+  <ion-list *ngIf="index">
     <ion-item *ngFor="let item of displayWords" [routerDirection]="'forward'" [routerLink]="'/detail/' + item.id">
       <ion-label text-wrap>
         <ion-text class="key-word">
           <h3>{{item.abb ? item.abb : item.eng}}</h3>
         </ion-text>
         <p class="list-mon" *ngIf="item.mon">{{item.mon}}</p>
-        <!-- <ion-text>
-          <p>{{item.eng_desc ? item.eng_desc : (item.mon_desc ? item.mon_desc : desc)}}</p>
-        </ion-text> -->
       </ion-label>
     </ion-item>
   </ion-list>
-  <div *ngIf="index == 0" class="no-result">
-    <img src="../../assets/icon/no-result.svg" class="no-result-img">
-    <ion-label>NO RESULT</ion-label>
-  </div>
+  <ion-row class="no-result" *ngIf="!index">
+    <ion-col size="12" style="padding-bottom: 130px;">
+      <ion-row>
+        <img src="../../assets/icon/no-result.svg" class="no-result-img">
+      </ion-row>
+      <ion-row>
+        <ion-label class="no-result-text">{{lang ? 'Хайлт олдсонгүй' : 'No result'}}</ion-label>
+      </ion-row>
+    </ion-col>
+  </ion-row>
 
   <ion-infinite-scroll threshold="130px" (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content

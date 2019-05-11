@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MiddlewareService } from '../services/middleware.service';
 
 @Component({
   selector: 'app-about',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./about.page.scss'],
 })
 export class AboutPage implements OnInit {
-
-  constructor() { }
+  lang: boolean;
+  constructor(
+    private middleWare: MiddlewareService
+  ) { }
 
   ngOnInit() {
+    this.middleWare.language.subscribe(lang => {
+      this.lang = lang;
+    });
   }
 
 }

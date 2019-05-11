@@ -7,4 +7,5 @@ export class Recently {
     abb: string;        // towchilson ug 
     desc: string;       // tailbar
     viewed_time: string;
+    created_date: string;
 }

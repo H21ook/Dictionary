@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Word } from '../models/word.model';
 import { DatabaseService } from '../services/database.service';
 import { Favorite } from '../models/favorite.model';
+import { MiddlewareService } from '../services/middleware.service';
 
 @Component({
   selector: 'app-favorite',
@@ -12,9 +13,10 @@ export class FavoritePage implements OnInit {
 
   favorites: any = [];
   listLength: number;
-  
+  lang: boolean;
   constructor(
-    private db: DatabaseService
+    private db: DatabaseService,
+    private middleWare: MiddlewareService
   ) { 
     this.db.getDatabaseState().subscribe(ready => {
       if (ready) {
@@ -27,6 +29,9 @@ export class FavoritePage implements OnInit {
   }
 
   ngOnInit() {
+    this.middleWare.language.subscribe(lang => {
+      this.lang = lang;
+    });
   }
 
   groupBy(array, key) {
