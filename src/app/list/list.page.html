@@ -7,7 +7,7 @@
   <ion-row>
     <ion-col size="2"></ion-col>
     <ion-col size="8">
-      <ion-searchbar mode="ios" animated placeholder="Хайх" (ionChange)="search($event)" color="light"></ion-searchbar>
+      <ion-searchbar mode="ios" animated placeholder="Search" (ionChange)="search($event)" color="light"></ion-searchbar>
     </ion-col>
     <ion-col size="2"></ion-col>
   </ion-row>
@@ -16,7 +16,7 @@
 <ion-content>
 
   <ion-list *ngIf="index > 0">
-    <ion-item *ngFor="let item of displayWords" [routerDirection]="'forward'" [routerLink]="'/detail/item.id'">
+    <ion-item *ngFor="let item of displayWords" [routerDirection]="'forward'" [routerLink]="'/detail/' + item.id">
       <ion-label text-wrap>
         <ion-text class="key-word">
           <h3>{{item.abb ? item.abb : item.eng}}</h3>
@@ -28,6 +28,10 @@
       </ion-label>
     </ion-item>
   </ion-list>
+  <div *ngIf="index == 0" class="no-result">
+    <img src="../../assets/icon/no-result.svg" class="no-result-img">
+    <ion-label>NO RESULT</ion-label>
+  </div>
 
   <ion-infinite-scroll threshold="130px" (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content

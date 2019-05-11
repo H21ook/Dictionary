@@ -70,3 +70,23 @@
 .list-mon {
     padding-left: 10px;
 }
+
+.no-result {
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    text-align: center
+}
+
+.no-result-img {
+    height: 100px;
+    width: 100px;
+    margin: 10px auto;
+    align-self: center;
+}
+
+.no-result-text {
+    font-size: 20px;
+    color: var(--ion-color-primary, #4C89C8);
+    padding: 10px;
+}

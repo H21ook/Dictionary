@@ -22,7 +22,7 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.backgroundColorByHexString("#7D83FF");
+      this.statusBar.backgroundColorByHexString("#4C89C8");
     });
   }
 

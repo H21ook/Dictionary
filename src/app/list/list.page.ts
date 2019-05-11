@@ -14,7 +14,7 @@ export class ListPage implements OnInit {
   words: Word[] = [];         //Oorchlogdohgui
   libWords: Word[] = [];      //Hailt hiiwel hailtiin ilerts awah zereg oorchlogdono
   displayWords: Word[] = [];  //delgetsend haragdah ugnuud
-  LIMIT = 20;                 //neg udaa unshih hyzgaar
+  LIMIT = 40;                 //neg udaa unshih hyzgaar
   word: Word;
   index: number = 0;
   searchField: string = "eng";  //hailt hiih talbar
@@ -87,14 +87,12 @@ export class ListPage implements OnInit {
 
     if (!search) {
       this.getDefaultValue();
-      this.presentToast("hooson");
     } else {
       this.words.filter(data => {
         if (data[this.searchField].trim().toLowerCase().includes(search.trim().toLowerCase())) {
           this.libWords.push(data);
         }
       });
-      this.presentToast("lib urt: " + this.libWords.length);
       this.displayWords = this.libWords.slice(this.index, this.index + this.LIMIT);
       this.index += this.LIMIT;
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Word } from '../models/word.model';
 import { DatabaseService } from '../services/database.service';
+import { Favorite } from '../models/favorite.model';
 
 @Component({
   selector: 'app-favorite',
@@ -9,7 +10,7 @@ import { DatabaseService } from '../services/database.service';
 })
 export class FavoritePage implements OnInit {
 
-  words: Word[] = [];
+  favorites: any = [];
   listLength: number;
   
   constructor(
@@ -17,9 +18,9 @@ export class FavoritePage implements OnInit {
   ) { 
     this.db.getDatabaseState().subscribe(ready => {
       if (ready) {
-        this.db.getWords().subscribe(words => {
-          this.words = words;
-          this.listLength = this.words.length;
+        this.db.getFavorites().subscribe(favorites => {
+          this.favorites = Object.values(this.groupBy(favorites, 'viewed_time'));
+          this.listLength = this.favorites.length;
         })
       }
     });
@@ -28,4 +29,10 @@ export class FavoritePage implements OnInit {
   ngOnInit() {
   }
 
+  groupBy(array, key) {
+    return array.reduce(function(element, x) {
+      (element[x[key]] = element[x[key]] || []).push(x);
+      return element;
+    }, {});
+  }
 }

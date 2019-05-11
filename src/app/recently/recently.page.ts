@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Word } from '../models/word.model';
 import { DatabaseService } from '../services/database.service';
+import { Recently } from '../models/recently.model';
 
 @Component({
   selector: 'app-recently',
@@ -9,7 +10,7 @@ import { DatabaseService } from '../services/database.service';
 })
 export class RecentlyPage implements OnInit {
 
-  words: Word[] = [];
+  recentles: any = [];
   listLength: number;
   
   constructor(
@@ -17,15 +18,23 @@ export class RecentlyPage implements OnInit {
   ) { 
     this.db.getDatabaseState().subscribe(ready => {
       if (ready) {
-        this.db.getWords().subscribe(words => {
-          this.words = words;
-          this.listLength = this.words.length;
+        this.db.getRecentles().subscribe(recentles => {
+          this.recentles = Object.values(this.groupBy(recentles, 'viewed_time'));
+          this.listLength = this.recentles.length;
         })
       }
     });
   }
 
   ngOnInit() {
+  }
+
+
+  groupBy(array, key) {
+    return array.reduce(function(element, x) {
+      (element[x[key]] = element[x[key]] || []).push(x);
+      return element;
+    }, {});
   }
 
 }

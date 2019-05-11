@@ -1,7 +1,7 @@
 <ion-header class="no-shadow">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-back-button defaultHref="list" text="" icon="arrow-back" color="light" ></ion-back-button>
     </ion-buttons>
     <ion-title>Recently</ion-title>
   </ion-toolbar>
@@ -9,13 +9,20 @@
 
 <ion-content>
   <ion-list *ngIf="listLength > 0">
-    <ion-item *ngFor="let item of words" [routerDirection]="'forward'" [routerLink]="'/detail/item.id'">
-      <ion-label text-wrap>
-        <ion-text class="key-word">
-          <h3>{{item.abb ? item.abb : item.eng}}</h3>
-        </ion-text>
-        <p class="list-mon" *ngIf="item.mon">{{item.mon}}</p>
-      </ion-label>
-    </ion-item>
+    <div *ngFor="let recently of recentles">
+      <ion-item-divider color="primary">
+        <ion-label>
+          {{recently[0].viewed_time}}
+        </ion-label>
+      </ion-item-divider>
+      <ion-item *ngFor="let item of recently" [routerDirection]="'forward'" [routerLink]="'/detail/'+item.id">
+        <ion-label text-wrap>
+          <ion-text class="key-word">
+            <h3>{{item.abb ? item.abb : item.eng}}</h3>
+          </ion-text>
+          <p class="list-mon" *ngIf="item.mon">{{item.mon}}</p>
+        </ion-label>
+      </ion-item>
+    </div>
   </ion-list>
 </ion-content>

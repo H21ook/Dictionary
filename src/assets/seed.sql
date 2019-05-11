@@ -1,3 +1,9 @@
+CREATE TABLE IF NOT EXISTS favorite(id INTEGER PRIMARY KEY AUTOINCREMENT, eng TEXT, mon TEXT, eng_desc TEXT, mon_desc TEXT, abb TEXT, text_desc TEXT, viewed_time TEXT);
+INSERT or IGNORE INTO favorite(id, eng, mon, eng_desc, mon_desc, abb, text_desc, viewed_time) VALUES (1, "A digital network working on a frequency of 1800 MHz.", "", "It is used in Europe, Asia-Pacific and Australia. Also known as DCS 1800 or PCN.", "", "GSM 1800", "", "5/11/2019");
+
+CREATE TABLE IF NOT EXISTS recently(id INTEGER PRIMARY KEY AUTOINCREMENT, eng TEXT, mon TEXT, eng_desc TEXT, mon_desc TEXT, abb TEXT, text_desc TEXT, viewed_time TEXT);
+INSERT or IGNORE INTO recently(id, eng, mon, eng_desc, mon_desc, abb, text_desc, viewed_time) VALUES (1, "A digital network working on a frequency of 1800 MHz.", "", "It is used in Europe, Asia-Pacific and Australia. Also known as DCS 1800 or PCN.", "", "GSM 1800", "", "5/11/2019");
+
 CREATE TABLE IF NOT EXISTS word(id INTEGER PRIMARY KEY AUTOINCREMENT, eng TEXT, mon TEXT, eng_desc TEXT, mon_desc TEXT, abb TEXT, text_desc TEXT);
 INSERT or IGNORE INTO word(id, eng, mon, eng_desc, mon_desc, abb, text_desc) VALUES (1, "A digital network working on a frequency of 1800 MHz.", "", "It is used in Europe, Asia-Pacific and Australia. Also known as DCS 1800 or PCN.", "", "GSM 1800", "");
 INSERT or IGNORE INTO word(id, eng, mon, eng_desc, mon_desc, abb, text_desc) VALUES (2, "A digital network working on a frequency of 1900 MHz", "", "It is used in the US and Canada and is scheduled for parts of Latin America and Africa. Also known as PCS 1900.", "", "GSM 1900", "");
